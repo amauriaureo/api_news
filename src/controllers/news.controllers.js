@@ -1,7 +1,6 @@
 import { createService, findAllService } from "../services/news.service.js";
 
 const create = async (req, res) => {
-
     try {
         const {title, text, banner} = req.body;
         if (!title || !banner || !text) {
@@ -28,4 +27,4 @@ const findAll = (req, res) => {
     res.send(news);
 };
 
-export default { create, findAll };
+export {create, findAll };
