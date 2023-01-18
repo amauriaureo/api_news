@@ -25,6 +25,8 @@ const create = async (req, res) => {
 };
 
 const findAll = async (req, res) => {
+    const {limit, offset} = req.query
+    
     const news = await findAllService();
     if (news.length === 0) {
         return res.status(400).send({
