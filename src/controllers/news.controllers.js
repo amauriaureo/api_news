@@ -25,9 +25,20 @@ const create = async (req, res) => {
 };
 
 const findAll = async (req, res) => {
-    const {limit, offset} = req.query
+    let {limit, offset} = req.query
+
+    limit = Number(limit);
+    offset = Number(offset);
+
+    if(!limit){
+        limit = 5;
+    }
+    if(!offset){
+        offset = 0;
+    }
+
+    const news = await findAllService(offset, limit);
     
-    const news = await findAllService();
     if (news.length === 0) {
         return res.status(400).send({
           message: "There are no registered news"
