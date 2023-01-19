@@ -1,4 +1,4 @@
-import { createService, findAllService, countNews, topNewsService, findById } from "../services/news.service.js";
+import { createService, findAllService, countNews, topNewsService, findByIdService } from "../services/news.service.js";
 // import { ObjectId } from "mongoose";
 
 export const create = async (req, res) => {
@@ -41,7 +41,7 @@ export const findAll = async (req, res) => {
         const news = await findAllService(offset, limit);
         const total = await countNews();
         const currentUrl = req.baseUrl
-        console.log(currentUrl)
+        // console.log(currentUrl)
 
         const next = offset + limit;
         const nextUrl = next < total ? `${currentUrl}?limit=${limit}&offset=${next}` : null;
@@ -97,7 +97,7 @@ export const topNews = async (req, res) => {
                 name: news.user.name,
                 username: news.user.username,
                 userAvatar: news.user.avatar
-            }
+            },
         });
     } catch (err) {
         res.status(500).send({ message: err.message });
@@ -105,5 +105,25 @@ export const topNews = async (req, res) => {
 };
 
 export const findById = async (req, res) => {
+    try {
+        const { id } = req.params;
 
+        const news = await findByIdService(id);
+
+        return res.send({
+            news: {
+                id: news._id,
+                title:news.title,
+                text: news.text,
+                banner: news.banner,
+                likes: news.likes,
+                comments: news.comments,
+                name: news.user.name,
+                username: news.user.username,
+                userAvatar: news.user.avatar
+            },
+        })
+    } catch {
+        res.status(500).send({ message: err.message })
+    }
 }
