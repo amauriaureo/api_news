@@ -6,7 +6,8 @@ import {
     findAll, 
     topNews, 
     findById, 
-    searchByTitle
+    searchByTitle,
+    byUser
 } from "../controllers/news.controllers.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
