@@ -161,3 +161,7 @@ export const searchByTitle = async(req, res) => {
         res.status(500).send({ message: err.message });
     }
 };
+
+export const byUser = async(req, res) => {
+    
+};
